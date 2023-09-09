@@ -51,6 +51,7 @@
             border: 1px solid black;
             background-color: black;
             margin-top: 10px;
+            margin-bottom: 10px;
             font-size: 19px;
             border-radius: 5px;
             font-weight: lighter;
@@ -74,6 +75,9 @@
             text-transform: uppercase;
             padding-top: 6px;
         }
+        main{
+            display: none;
+        }
         /* #icon{
             width: 40%;
         } */
@@ -85,16 +89,28 @@
     </style>
     <center>
         <section style="color: white;">
-            <h1>Weather App</h1>
+            <h1>Weather Forecast</h1>
             <input type="text" placeholder="City name" id="checkInp">
             <button id="check">CHECK</button>
-            <div id="description"></div>
+            <main id="weather">
+                <div id="description"></div>
             <img src="" alt="" id="icon">
             <div id="meridian">
-                <div id="long">long:</div>
-                <div id="lat">lat:</div>
+                <div>
+                    <div>LONGITUDE</div>
+                    <span id="long">32787</span>
+                </div>
+                <div>
+                    <div>LATITUDE</div>
+                    <span id="lat">7827</span>
+                </div>
             </div>
-            <div id="temprature">temp</div>
+            <div id="temprature">TEMPRATURE</div><br><br>
+            <div style="font-size: 25px;">COUNTRY:</div>
+            <span id="country"></span><br><br>
+            <div style="font-size: 25px;">Wind speed:</div>
+            <span id="wind-speed"></span>
+            </main>
         </section>
     </center>
 
@@ -106,12 +122,16 @@
         let lat = document.querySelector("#lat");
         let description = document.querySelector("#description");
         let icon = document.querySelector("#icon");
+        let weathers = document.querySelector("#weather");
+        let windSpeed = document.querySelector("#wind-speed");
+        let country = document.querySelector("#country")
 
         
 
 
         //let endpoint = "https://jsonplaceholder.typicode.com/users"
         const fetchInfo = async ()=>{
+            weathers.style.display = "block";
             let cityName;
         // cityName = "Ibadan";
             cityName = document.getElementById("checkInp").value;
@@ -123,19 +143,23 @@
             let longitude = convertedResponce.coord.lon;
             let latitude = convertedResponce.coord.lat
             let descrip = convertedResponce.weather[0].description;
+            let windSpeedd = convertedResponce.wind.speed;
+            let countryy = convertedResponce.sys.country;
 
             console.log(convertedResponce);
             console.log(cityName)
 
 
-            let tempCelcious = 5/9*(temprature-32);
+            let tempCelcious = temprature - 273;
 
             //DECLARATIONS
-            long.textContent = `long : ${longitude}`;
-            lat.textContent = `lat : ${latitude}`;
+            long.textContent = longitude;
+            lat.textContent = latitude;
             description.textContent = descrip;
             console.log(descrip)
             tempratures.textContent =Math.round(tempCelcious) +"°C";
+            windSpeed.textContent = windSpeedd +"km/h";
+            country.textContent = countryy
             icon.src = "http://openweathermap.org/img/w/"+convertedResponce.weather[0].icon+".png";
             console.log(tempCelcious)
             
