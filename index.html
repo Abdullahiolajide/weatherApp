@@ -125,6 +125,7 @@
         let weathers = document.querySelector("#weather");
         let windSpeed = document.querySelector("#wind-speed");
         let country = document.querySelector("#country")
+        let popSound = new Audio("decidemp3-14575.mp3")
 
         
 
@@ -162,6 +163,8 @@
             country.textContent = countryy
             icon.src = "http://openweathermap.org/img/w/"+convertedResponce.weather[0].icon+".png";
             console.log(tempCelcious)
+
+            popSound.play()
             
         }
         // fetchInfo();
